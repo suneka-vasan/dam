@@ -6,7 +6,7 @@ module.exports = {
             fontFamily: "body",
             focusVisible: false,
             // fontSize: "0.9rem",
-            scrollbarColor: "var(--fe-colors-orange-500) var(--fe-colors-orange-100)",
+            scrollbarColor: "var(--fe-colors-green-500) var(--fe-colors-green-100)",
             scrollbarWidth: "thin",
         },
         body: {
