@@ -1,15 +1,16 @@
 import Button from "./Button"
 import colors from "./colors"
 import global from "./global"
+import '@fontsource/alexandria'
 
 const globalTheme = {
     config: {
         cssVarPrefix: "dam",
     },
     fonts: {
-        body: "Poppins",
-        heading: "Montserrat",
-        mono: "Menlo, monospace",
+        body: "Alexandria",
+        heading: "Alexandria",
+        mono: "Alexandria",
     },
     styles: global,
     components: {
