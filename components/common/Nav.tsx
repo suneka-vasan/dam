@@ -12,7 +12,7 @@ export default function Nav() {
                     <Spacer />
                     <ButtonGroup spacing='6' ml={'auto'}>
                         <Link href='/login'><Button colorScheme='green'>Login</Button></Link>
-                        <Button colorScheme='teal'>Sign up</Button>
+                        <Link href='/signup'><Button colorScheme='teal'>Sign up</Button></Link>
                     </ButtonGroup>
                 </HStack>
             </Container>
