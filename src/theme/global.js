@@ -15,7 +15,7 @@ module.exports = {
             },
         },
         body: {
-            color: "grey",
+            color: "grey.500",
             bg: "grey.50",
         },
         "p, div": {

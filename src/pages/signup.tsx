@@ -21,16 +21,16 @@ export default function Signup() {
                         bgSize='cover'
                         bgRepeat='no-repeat'
                         flexDirection='column'>
-                        <Heading pb='5' size='md' color='white'>DAM</Heading>
+                        <Heading pb={{ base: '5', sm: '0' }} size={{ base: 'md', sm: 'lg' }} color='white'>DAM</Heading>
                         <Box >
-                            <Heading color='green.500' pb='5'>Lorem ipsum dolor.</Heading>
+                            <Heading color='green.500' pb='5' size={{ base: 'md', sm: 'lg' }}>Lorem ipsum dolor.</Heading>
                             <Text color='white'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis adipisci saepe labore earum repudiandae cum.</Text>
                         </Box>
                         <Box></Box>
                     </Flex>
                     <Flex alignItems='center' justifyContent='center' p={{ base: '5', sm: '10' }} bgColor='white'>
                         <Box>
-                            <Heading color='green.500'>Sign up</Heading>
+                            <Heading color='green.500' size={{ base: 'md', sm: 'lg' }}>Sign up</Heading>
                             <Text pb='5'>Alreay have an account? <Link href='/login' color='teal.500' textDecoration='none'>Login</Link></Text>
                             <Text>Looking for?</Text>
                             <RadioGroup onChange={setValue} value={value}>
