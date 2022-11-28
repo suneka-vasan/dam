@@ -1,9 +1,10 @@
 import { Heading, Flex } from '@chakra-ui/react'
+import bgPattern from '../../assets/bg-pattern.png'
 
-export default function Footer() {
+export default function Footer(props: any) {
     return (
         <Flex
-            bgImg='./bg-pattern.png'
+            bgImage={bgPattern.src}
             bgPos={"center"}
             bgSize={"cover"}
             bgRepeat={"no-repeat"}

@@ -9,6 +9,11 @@ module.exports = {
             scrollbarColor: "var(--fe-colors-green-500) var(--fe-colors-green-100)",
             scrollbarWidth: "thin",
         },
+        "a": {
+            _hover: {
+                textDecoration: "none",
+            },
+        },
         body: {
             color: "grey",
             bg: "white",
