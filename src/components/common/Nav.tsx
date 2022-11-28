@@ -8,7 +8,7 @@ export default function Nav() {
         <>
             <Container maxW='container.xl' py='3'>
                 <HStack>
-                    <Heading color='teal.500'>DAM</Heading>
+                    <Heading color='teal.500' size={{ base: 'md', sm: 'lg' }}>DAM</Heading>
                     <Spacer />
                     <ButtonGroup spacing='6' ml={'auto'}>
                         <Link href='/login'><Button colorScheme='green'>Login</Button></Link>
