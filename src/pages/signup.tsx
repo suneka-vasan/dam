@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Link, Container, Box, Flex, Input, Heading, Text, Card, HStack, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 
 export default function Signup() {
+    const [value, setValue] = React.useState('Professional')
     return (
         <Box bgColor='grey.50'>
             <Container maxW={'container.lg'} height={{ base: '100%', sm: '100vh' }} display={'flex'} alignItems='center' justifyContent='center'>
@@ -32,15 +33,15 @@ export default function Signup() {
                             <Heading color='green.500'>Sign up</Heading>
                             <Text pb='5'>Alreay have an account? <Link href='/login' color='teal.500'>Login</Link></Text>
                             <Text>Looking for?</Text>
-                            <HStack>
-                                <Input type='radio' focusBorderColor="green.500" />
-                                <Input type='radio' focusBorderColor="green.500" />
-                            </HStack>
+                            <RadioGroup onChange={setValue} value={value}>
+                                <HStack mb='5'>
+                                    <Box w='50%' border='1px' borderColor='gray.200' px='4' py='1' borderRadius='8'><Radio value='Professional' colorScheme='green' defaultChecked fontSize='md'>Professional</Radio></Box>
+                                    <Box w='50%' border='1px' borderColor='gray.200' px='4' py='1' borderRadius='8'><Radio value='Personal' colorScheme='green' fontSize='md'>Personal</Radio></Box>
+                                </HStack>
+                            </RadioGroup>
                             <Text>Email</Text>
                             <Input focusBorderColor="green.500" mb='5' />
                             <Text>Password</Text>
-                            <Input focusBorderColor="green.500" mb='5' />
-                            <Text>Company Name</Text>
                             <Input focusBorderColor="green.500" mb='5' />
                             <Text>Company Name</Text>
                             <Input focusBorderColor="green.500" mb='5' />
@@ -49,7 +50,7 @@ export default function Signup() {
                     </Flex>
                 </Card>
 
-            </Container>
-        </Box>
+            </Container >
+        </Box >
     )
 }
