@@ -16,7 +16,7 @@ module.exports = {
         },
         body: {
             color: "grey",
-            bg: "white",
+            bg: "grey.50",
         },
         "p, div": {
             lineHeight: "taller",
