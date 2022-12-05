@@ -36,7 +36,7 @@ export default function Login() {
                             <Input focusBorderColor="green.500" mb='5' />
                             <Text>Password</Text>
                             <Input focusBorderColor="green.500" mb='5' />
-                            <Link href='/login'><Button colorScheme='green' px='10'>Login</Button></Link>
+                            <Link href='/allapps'><Button colorScheme='green' px='10'>Login</Button></Link>
                         </Box>
                     </Flex>
                 </Card>
