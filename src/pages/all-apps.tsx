@@ -50,7 +50,7 @@ export default function Allapps() {
                                 <Flex key={item.id} w='200px' h='200px' bg='white' borderRadius='xl' boxShadow='base' p='3' alignItems='center' justifyContent='center'>
                                     <Box>
                                         <Image src={item.img.src} alt='Social Icons' h='75px' w='75px' />
-                                        <Text color={"green.500"}>
+                                        <Text color={"green.500"} textAlign='center'>
                                             {item.title}
                                         </Text>
                                     </Box>

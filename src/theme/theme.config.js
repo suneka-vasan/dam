@@ -15,6 +15,21 @@ const globalTheme = {
     styles: global,
     components: {
         Button,
+        Accordion: {
+            baseStyle: {
+                container: {
+                    border: 'none',
+                    backgroundColor: 'transparent',
+                    _hover: {
+                        backgroundColor: 'white',
+                        color: 'green.500'
+                    }
+                },
+                item: {
+                    backgroundColor: "green"
+                }
+            }
+        },
     },
     colors,
     initialColorMode: "light",
