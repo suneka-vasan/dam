@@ -1,31 +1,34 @@
 import React from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Text, Button, Box } from '@chakra-ui/react'
 
-function DropdownMenu() {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const handleClick = () => {
-        setIsOpen((currentIsOpen) => !currentIsOpen);
-    };
+const menu = [
+    { title: 'Home', path: '/all-apps' },
+    { title: 'Media', path: '/media' },
+    { title: 'Notifications', path: '/notifications' },
+]
+
+const Sidebar = () => {
+    const router = useRouter()
 
     return (
-        <>
-            <Box>
-                <Button onClick={handleClick} variant='unstyled'>Actions</Button>
-                {isOpen ? (
-                    <ul>
-                        <li>Edit</li>
-                        <li>Remove</li>
-                        <li>Archive</li>
-                    </ul>
-                ) : null}
-            </Box>
-            <Text>Media
-            </Text>
-            <Text>Media
-            </Text>
-        </>
-    );
+        <div>
+            {menu.map((item, index) => {
+                return (
+                    <Link key={index} href={item.path} legacyBehavior>
+                        <a
+                            className={
+                                router.pathname === item.path
+                                    ? '#728c69' : '#000000'
+                            }
+                        >
+                            {item.title}
+                        </a>
+                    </Link>
+                )
+            })}
+        </div >
+    )
 }
 
-export default DropdownMenu
+export default Sidebar

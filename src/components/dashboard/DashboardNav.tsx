@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-    GridItem, Text, Box, Stack, HStack, VStack, Link, Heading, Spacer, Menu,
+    GridItem, Text, Box, Stack, HStack, VStack, Heading, Spacer, Menu, Link,
     MenuButton,
     MenuList,
     MenuItem,
@@ -75,13 +75,13 @@ export default function DashboardNav() {
                 bgImage={bgPattern.src}
                 bgPos='center'
                 bgSize='cover'
-                bgRepeat='no-repeat' color='white' p={5} >
+                bgRepeat='no-repeat' color='white' p={2} >
                 <VStack justifyContent={'space-between'} h='full' alignItems={'start'} >
                     <Box w='full'>
                         <Accordion allowToggle w='full'>
                             {links.map((link, index) => (
                                 <AccordionItem key={index}>
-                                    <Link href={link.path}>
+                                    <Link href={link.path} >
                                         <AccordionButton _expanded={{ bg: 'white', color: 'green.500' }} _hover={{ bg: 'white', color: 'green.500' }} borderRadius='10'>
                                             <Text>{link.icon}</Text>
                                             <Box as="span" flex='1' textAlign='left' pl='3'>
