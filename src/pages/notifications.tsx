@@ -17,7 +17,7 @@ export default function Notifications() {
             templateAreas={`"header header"
                   "nav main"`}
             gridTemplateRows={'60px 1fr'}
-            gridTemplateColumns={'300px 1fr'}
+            gridTemplateColumns={'250px 1fr'}
             minH='100vh'
             color='blackAlpha.700'
         >

@@ -1,23 +1,31 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { Text, Button, Box } from '@chakra-ui/react'
 
-function ActiveLink({ children, href }: any) {
-    const router = useRouter()
-    const style = {
-        marginRight: 10,
-        color: router.asPath === href ? 'red' : 'black',
-    }
-
-    const handleClick = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
-        router.push(href)
-    }
+function DropdownMenu() {
+    const [isOpen, setIsOpen] = React.useState(false);
+    const handleClick = () => {
+        setIsOpen((currentIsOpen) => !currentIsOpen);
+    };
 
     return (
-        <a href={href} onClick={handleClick} style={style}>
-            {children}
-        </a>
-    )
+        <>
+            <Box>
+                <Button onClick={handleClick} variant='unstyled'>Actions</Button>
+                {isOpen ? (
+                    <ul>
+                        <li>Edit</li>
+                        <li>Remove</li>
+                        <li>Archive</li>
+                    </ul>
+                ) : null}
+            </Box>
+            <Text>Media
+            </Text>
+            <Text>Media
+            </Text>
+        </>
+    );
 }
 
-export default ActiveLink
+export default DropdownMenu

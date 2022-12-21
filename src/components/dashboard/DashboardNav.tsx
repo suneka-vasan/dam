@@ -9,18 +9,43 @@ import {
     AccordionItem,
     AccordionButton,
     AccordionPanel,
-    AccordionIcon,
 } from '@chakra-ui/react'
 import bgPattern from '../../../src/assets/bg-pattern.png'
 import { CgMenuGridR } from 'react-icons/cg'
-import { MdPermMedia, MdArrowRight } from 'react-icons/md'
+import { MdPermMedia } from 'react-icons/md'
 import { IoIosNotifications } from 'react-icons/io'
 import { GoChevronDown } from 'react-icons/go'
 
 const links = [
-    { id: 1, label: 'My Apps', icon: <CgMenuGridR />, childlinks: ['All Apps', 'Connected Apps'] },
-    { id: 2, label: 'Media', icon: <MdPermMedia />, childlinks: [], path: '/media' },
-    { id: 3, label: 'Notifcations', icon: <IoIosNotifications />, childlinks: [], path: '/notifications' },
+    {
+        id: 1,
+        label: 'My Apps',
+        icon: <CgMenuGridR />,
+        childlinks: [
+            {
+                childlables: 'All Apps',
+                childpaths: '/all-apps'
+            },
+            {
+                childlables: 'Connected Apps',
+                childpaths: '/connected-apps'
+            }
+        ]
+    },
+    {
+        id: 2,
+        label: 'Media',
+        icon: <MdPermMedia />,
+        childlinks: [],
+        path: '/media'
+    },
+    {
+        id: 3,
+        label: 'Notifcations',
+        icon: <IoIosNotifications />,
+        childlinks: [],
+        path: '/notifications'
+    },
 ];
 
 export default function DashboardNav() {
@@ -52,68 +77,37 @@ export default function DashboardNav() {
                 bgSize='cover'
                 bgRepeat='no-repeat' color='white' p={5} >
                 <VStack justifyContent={'space-between'} h='full' alignItems={'start'} >
-                    {/* <Box>
-                        {links.map((link, index) => (
-                            <Stack key={index}>
-                                <HStack>
-                                    <Text>{link.icon}</Text>
-                                    <Link href={link.path} onClick={() => setToggle(!toggle)}><Text>{link.label}</Text></Link>
-                                </HStack>
-                                {link.childlinks.map((childlink, index) => (
-                                    <Link key={index} href={link.path}>
-                                        {toggle && (
-                                            <Text pl='5'>{childlink}</Text>
-                                        )}
-                                    </Link>
-                                ))}
-                            </Stack>
-                        ))}
-                    </Box> */}
-                    <VStack w='full'>
+                    <Box w='full'>
                         <Accordion allowToggle w='full'>
-                            <AccordionItem >
-                                <h2>
-                                    <AccordionButton>
-                                        <CgMenuGridR fontSize='md' />
-                                        <Box as="span" flex='1' textAlign='left' pl='3'>
-                                            My Apps
-                                        </Box>
-                                    </AccordionButton>
-                                </h2>
-                                <AccordionPanel>
-                                    <Text><Link href='/all-apps'>All Apps</Link></Text>
-                                    <Text><Link>Connected Apps</Link></Text>
-                                </AccordionPanel>
-                            </AccordionItem>
-
-                            <AccordionItem>
-                                <Link href='/media'>
-                                    <AccordionButton>
-                                        <MdPermMedia />
-                                        <Box as="span" flex='1' textAlign='left' pl='3'>
-                                            Media
-                                        </Box>
-                                    </AccordionButton>
-                                </Link>
-                            </AccordionItem>
-                            <AccordionItem>
-                                <Link href='/notifications'>
-                                    <AccordionButton>
-                                        <MdPermMedia />
-                                        <Box as="span" flex='1' textAlign='left' pl='3'>
-                                            Notification
-                                        </Box>
-                                    </AccordionButton>
-                                </Link>
-                            </AccordionItem>
+                            {links.map((link, index) => (
+                                <AccordionItem key={index}>
+                                    <Link href={link.path}>
+                                        <AccordionButton _expanded={{ bg: 'white', color: 'green.500' }} _hover={{ bg: 'white', color: 'green.500' }} borderRadius='10'>
+                                            <Text>{link.icon}</Text>
+                                            <Box as="span" flex='1' textAlign='left' pl='3'>
+                                                {link.label}
+                                            </Box>
+                                        </AccordionButton>
+                                    </Link>
+                                    {link.childlinks.map((childlink, index) => (
+                                        <AccordionPanel py='2' key={index} _hover={{ color: 'green.500' }}>
+                                            <Text pl='7'>
+                                                <Link href={childlink.childpaths} >
+                                                    {childlink.childlables}
+                                                </Link>
+                                            </Text>
+                                        </AccordionPanel>
+                                    ))}
+                                </AccordionItem>
+                            ))}
                         </Accordion>
-                    </VStack>
-                    <VStack alignItems={'start'}>
+                    </Box>
+                    <Box p='3'>
                         <Text fontSize='base' >Privacy Policy</Text>
                         <Text fontSize='base' >Dam &copy; {new Date().getFullYear()}</Text>
-                    </VStack>
+                    </Box>
                 </VStack>
             </GridItem>
         </>
     )
-}             
+}   

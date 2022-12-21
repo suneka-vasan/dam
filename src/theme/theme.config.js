@@ -20,10 +20,7 @@ const globalTheme = {
                 container: {
                     border: 'none',
                     backgroundColor: 'transparent',
-                    _hover: {
-                        backgroundColor: 'white',
-                        color: 'green.500'
-                    }
+                    borderRadius: '10',
                 },
                 item: {
                     backgroundColor: "green"
