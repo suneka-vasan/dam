@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {
-    GridItem, Text, Box, Stack, HStack, VStack, Heading, Spacer, Menu, Link,
+    GridItem, Text, Box, Stack, HStack, VStack, Heading, Spacer, Menu,
     MenuButton,
     MenuList,
     MenuItem,
@@ -8,19 +8,22 @@ import {
     Accordion,
     AccordionItem,
     AccordionButton,
-    AccordionPanel,
+    AccordionPanel, Link
 } from '@chakra-ui/react'
 import bgPattern from '../../../src/assets/bg-pattern.png'
 import { CgMenuGridR } from 'react-icons/cg'
 import { MdPermMedia } from 'react-icons/md'
 import { IoIosNotifications } from 'react-icons/io'
 import { GoChevronDown } from 'react-icons/go'
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 const links = [
     {
         id: 1,
         label: 'My Apps',
         icon: <CgMenuGridR />,
+        path: '#',
         childlinks: [
             {
                 childlables: 'All Apps',
@@ -47,8 +50,19 @@ const links = [
         path: '/notifications'
     },
 ];
+const activestyle1 = {
+    color: 'green',
+    backgroundColor: 'white'
+}
+const nonactivestyle1 = {
+    color: ''
+}
 
-export default function DashboardNav() {
+export default function DashboardNavExample() {
+    const router = useRouter();
+    const currentRoute = router.pathname;
+
+
     return (
         <>
             <GridItem bg='white' area={'header'} borderBottom='1px' borderBottomColor={'grey.100'}>
@@ -78,29 +92,45 @@ export default function DashboardNav() {
                 bgRepeat='no-repeat' color='white' p={2} >
                 <VStack justifyContent={'space-between'} h='full' alignItems={'start'} >
                     <Box w='full'>
-                        <Accordion allowToggle w='full'>
-                            {links.map((link, index) => (
-                                <AccordionItem key={index}>
-                                    <Link href={link.path} >
-                                        <AccordionButton _expanded={{ bg: 'white', color: 'green.500' }} _hover={{ bg: 'white', color: 'green.500' }} borderRadius='10'>
-                                            <Text>{link.icon}</Text>
-                                            <Box as="span" flex='1' textAlign='left' pl='3'>
-                                                {link.label}
-                                            </Box>
-                                        </AccordionButton>
-                                    </Link>
-                                    {link.childlinks.map((childlink, index) => (
-                                        <AccordionPanel py='2' key={index} _hover={{ color: 'green.500' }}>
-                                            <Text pl='7'>
-                                                <Link href={childlink.childpaths} >
-                                                    {childlink.childlables}
-                                                </Link>
-                                            </Text>
-                                        </AccordionPanel>
-                                    ))}
-                                </AccordionItem>
-                            ))}
-                        </Accordion>
+                        {links.map((link) => {
+                            const navStyle = link.path === currentRoute ? activestyle1 : nonactivestyle1;
+                            if (link.childlinks.length === 0) {
+                                return (
+                                    <NextLink key={link.id} href={link.path} >
+                                        <HStack px='4' py='2' borderRadius='10' style={navStyle} _hover={{ backgroundColor: 'white', borderRadius: '10', color: 'green' }}>
+                                            {link.icon}
+                                            <Text fontSize='md'>{link.label}</Text>
+                                        </HStack>
+                                    </NextLink>
+                                )
+                            } else {
+                                return (
+                                    <Accordion allowToggle w='full' key={link.id}>
+                                        <AccordionItem>
+                                            <NextLink href={''} passHref style={navStyle}>
+                                                <AccordionButton _expanded={{ backgroundColor: 'white', color: 'green', borderRadius: '10' }} _hover={{ backgroundColor: 'white', borderRadius: '10', color: 'green' }}>
+                                                    <Text>{link.icon}</Text>
+                                                    <Box as="span" flex='1' textAlign='left' pl='3'>
+                                                        {link.label}
+                                                    </Box>
+                                                </AccordionButton>
+                                            </NextLink>
+                                            {link.childlinks.map((childlink, index) => (
+                                                <AccordionPanel py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200', borderRadius: '10' }}>
+                                                    <Text pl='7'>
+                                                        <Link href={childlink.childpaths} >
+                                                            {childlink.childlables}
+                                                        </Link>
+                                                    </Text>
+                                                </AccordionPanel>
+                                            ))}
+                                        </AccordionItem>
+                                    </Accordion>
+                                )
+
+                            }
+
+                        })}
                     </Box>
                     <Box p='3'>
                         <Text fontSize='base' >Privacy Policy</Text>

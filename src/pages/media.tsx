@@ -3,7 +3,7 @@ import {
     Grid, GridItem, Box, Heading, HStack, Flex, Image, Text
 } from '@chakra-ui/react'
 import DashboardNav from '../components/dashboard/DashboardNav'
-import Sidebar from '../components/dashboard/Test'
+
 
 export default function Media() {
     return (
@@ -15,8 +15,7 @@ export default function Media() {
             minH='100vh'
             color='blackAlpha.700'
         >
-            {/* <DashboardNav /> */}
-            <Sidebar />
+            <DashboardNav />
             <GridItem bg='grey.50' area={'main'}>
                 <Box p='10'>
                     <Heading size='md' color='green.500' pb='5'>Media</Heading>

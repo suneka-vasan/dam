@@ -1,6 +1,5 @@
 const Button = {
     baseStyle: {
-        textTransform: "uppercase",
         fontWeight: "normal",
         letterSpacing: 1.1,
         borderRadius: 10,
