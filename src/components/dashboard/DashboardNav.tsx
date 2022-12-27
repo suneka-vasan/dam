@@ -108,7 +108,7 @@ export default function DashboardNavExample() {
                                     <Accordion allowToggle w='full' key={link.id}>
                                         <AccordionItem>
                                             <NextLink href={''} passHref style={navStyle}>
-                                                <AccordionButton _expanded={{ backgroundColor: 'white', color: 'green', borderRadius: '10' }} _hover={{ backgroundColor: 'white', borderRadius: '10', color: 'green' }}>
+                                                <AccordionButton borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green', borderRadius: '10' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
                                                     <Text>{link.icon}</Text>
                                                     <Box as="span" flex='1' textAlign='left' pl='3'>
                                                         {link.label}
@@ -116,7 +116,7 @@ export default function DashboardNavExample() {
                                                 </AccordionButton>
                                             </NextLink>
                                             {link.childlinks.map((childlink, index) => (
-                                                <AccordionPanel py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200', borderRadius: '10' }}>
+                                                <AccordionPanel borderRadius='10' py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }}>
                                                     <Text pl='7'>
                                                         <Link href={childlink.childpaths} >
                                                             {childlink.childlables}
