@@ -23,15 +23,15 @@ const links = [
         id: 1,
         label: 'My Apps',
         icon: <CgMenuGridR />,
-        path: '#',
-        childlinks: [
+        path: '',
+        childLinks: [
             {
-                childlables: 'All Apps',
-                childpaths: '/all-apps'
+                childLables: 'All Apps',
+                childPaths: '/all-apps'
             },
             {
-                childlables: 'Connected Apps',
-                childpaths: '/connected-apps'
+                childLables: 'Connected Apps',
+                childPaths: '/connected-apps'
             }
         ]
     },
@@ -39,22 +39,22 @@ const links = [
         id: 2,
         label: 'Media',
         icon: <MdPermMedia />,
-        childlinks: [],
+        childLinks: [],
         path: '/media'
     },
     {
         id: 3,
         label: 'Notifcations',
         icon: <IoIosNotifications />,
-        childlinks: [],
+        childLinks: [],
         path: '/notifications'
     },
 ];
-const activestyle1 = {
+const activeStyle = {
     color: 'green',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
 }
-const nonactivestyle1 = {
+const nonactiveStyle = {
     color: ''
 }
 
@@ -93,8 +93,8 @@ export default function DashboardNavExample() {
                 <VStack justifyContent={'space-between'} h='full' alignItems={'start'} >
                     <Box w='full'>
                         {links.map((link) => {
-                            const navStyle = link.path === currentRoute ? activestyle1 : nonactivestyle1;
-                            if (link.childlinks.length === 0) {
+                            const navStyle = link.path === currentRoute ? activeStyle : nonactiveStyle;
+                            if (link.childLinks.length === 0) {
                                 return (
                                     <NextLink key={link.id} href={link.path} >
                                         <HStack mb='1' px='4' py='2' borderRadius='10' style={navStyle} _hover={{ backgroundColor: 'white', borderRadius: '10', color: 'green' }}>
@@ -104,10 +104,12 @@ export default function DashboardNavExample() {
                                     </NextLink>
                                 )
                             } else {
+                                const childNavPath = link.childLinks;
+                                console.log(childNavPath);
                                 return (
                                     <Accordion allowToggle w='full' key={link.id}>
                                         <AccordionItem>
-                                            <NextLink href={''} passHref style={navStyle}>
+                                            <NextLink href={''} passHref >
                                                 <AccordionButton mb='1' borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green', borderRadius: '10' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
                                                     <Text>{link.icon}</Text>
                                                     <Box as="span" flex='1' textAlign='left' pl='3'>
@@ -115,21 +117,20 @@ export default function DashboardNavExample() {
                                                     </Box>
                                                 </AccordionButton>
                                             </NextLink>
-                                            {link.childlinks.map((childlink, index) => (
-                                                <AccordionPanel borderRadius='10' py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }}>
-                                                    <Text pl='7'>
-                                                        <Link href={childlink.childpaths}>
-                                                            {childlink.childlables}
+                                            {link.childLinks.map((childLink, index) => {
+                                                const navStyle2 = childLink.childPaths === currentRoute ? activeStyle : nonactiveStyle;
+                                                return (
+                                                    <AccordionPanel mb='1' borderRadius='10' py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }} style={navStyle2}>
+                                                        <Link pl='7' href={childLink.childPaths} _hover={{ textDecoration: 'none' }}>
+                                                            {childLink.childLables}
                                                         </Link>
-                                                    </Text>
-                                                </AccordionPanel>
-                                            ))}
+                                                    </AccordionPanel>
+                                                )
+                                            })}
                                         </AccordionItem>
                                     </Accordion>
                                 )
-
                             }
-
                         })}
                     </Box>
                     <Box p='3'>
