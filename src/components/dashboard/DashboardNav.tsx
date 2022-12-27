@@ -97,7 +97,7 @@ export default function DashboardNavExample() {
                             if (link.childlinks.length === 0) {
                                 return (
                                     <NextLink key={link.id} href={link.path} >
-                                        <HStack px='4' py='2' borderRadius='10' style={navStyle} _hover={{ backgroundColor: 'white', borderRadius: '10', color: 'green' }}>
+                                        <HStack mb='1' px='4' py='2' borderRadius='10' style={navStyle} _hover={{ backgroundColor: 'white', borderRadius: '10', color: 'green' }}>
                                             {link.icon}
                                             <Text fontSize='md'>{link.label}</Text>
                                         </HStack>
@@ -108,7 +108,7 @@ export default function DashboardNavExample() {
                                     <Accordion allowToggle w='full' key={link.id}>
                                         <AccordionItem>
                                             <NextLink href={''} passHref style={navStyle}>
-                                                <AccordionButton borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green', borderRadius: '10' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
+                                                <AccordionButton mb='1' borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green', borderRadius: '10' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
                                                     <Text>{link.icon}</Text>
                                                     <Box as="span" flex='1' textAlign='left' pl='3'>
                                                         {link.label}
@@ -118,7 +118,7 @@ export default function DashboardNavExample() {
                                             {link.childlinks.map((childlink, index) => (
                                                 <AccordionPanel borderRadius='10' py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }}>
                                                     <Text pl='7'>
-                                                        <Link href={childlink.childpaths} >
+                                                        <Link href={childlink.childpaths}>
                                                             {childlink.childlables}
                                                         </Link>
                                                     </Text>
