@@ -54,10 +54,11 @@ const activeStyle = {
 const nonactiveStyle = {
 }
 
-
 export default function DashboardNav() {
     const router = useRouter();
     const currentRoute = router.pathname;
+    const [Active, setActive] = useState(0);
+
     return (
         <>
             <GridItem bg='white' area={'header'} borderBottom='1px' borderBottomColor={'grey.100'}>
@@ -65,12 +66,11 @@ export default function DashboardNav() {
                     <Heading color='teal.500' size={{ base: 'md', sm: 'lg' }} pl='5' py='3'>DAM</Heading>
                     <Spacer />
                     <Avatar name='Dan Abrahmov' src='https://bit.ly/dan-abramov' size='sm' />
-                    <Menu >
+                    <Menu>
                         <MenuButton pr='5'
                             as={Button} rightIcon={<GoChevronDown />}
                             aria-label='Options'
-                            variant='unstyled'
-                        >
+                            variant='unstyled'>
                             User Name
                         </MenuButton>
                         <MenuList>
@@ -85,16 +85,14 @@ export default function DashboardNav() {
                 bgPos='center'
                 bgSize='cover'
                 bgRepeat='no-repeat' color='white' p={2}>
-                <VStack justifyContent={'space-between'} h='full' alignItems={'start'} >
+                <VStack justifyContent={'space-between'} h='full' alignItems={'start'}>
                     <Box w='full'>
                         {links.map((link) => {
-                            const navStyle = link.path === currentRoute ? activeStyle : nonactiveStyle;
-                            // const linkprop = link.hasOwnProperty.call(link, 'path');
-                            // console.log(linkprop);
                             if (link.path !== undefined) {
+                                const navStyle = link.path === currentRoute ? activeStyle : nonactiveStyle;
                                 return (
                                     <NextLink key={link.id} href={link.path}>
-                                        <HStack mb='1' px='4' py='2' borderRadius='10' style={navStyle} _hover={{ backgroundColor: 'white', borderRadius: '10', color: 'green' }}>
+                                        <HStack mb='1' px='4' py='2' style={navStyle} borderRadius='10' _hover={{ backgroundColor: 'white', color: 'green' }}>
                                             {link.icon}
                                             <Text fontSize='md'>{link.label}</Text>
                                         </HStack>
@@ -102,9 +100,9 @@ export default function DashboardNav() {
                                 )
                             } else {
                                 return (
-                                    <Accordion allowToggle w='full' key={link.id}>
-                                        <AccordionItem>
-                                            <AccordionButton mb='1' borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green', borderRadius: '10' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
+                                    <Accordion allowMultiple allowToggle w='full' key={link.id} index={Active}>
+                                        <AccordionItem id='1'>
+                                            <AccordionButton mb='1' borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
                                                 <Text>{link.icon}</Text>
                                                 <Box as="span" flex='1' textAlign='left' pl='3'>
                                                     {link.label}
@@ -112,15 +110,13 @@ export default function DashboardNav() {
                                             </AccordionButton>
                                             {link.childLinks.map((childLink, index) => {
                                                 const navStyle2 = childLink.childPaths === currentRoute ? activeStyle : nonactiveStyle;
-                                                if (childLink !== undefined) {
-                                                    return (
-                                                        <AccordionPanel mb='1' borderRadius='10' py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }} style={navStyle2}>
-                                                            <Link pl='7' href={childLink.childPaths} _hover={{ textDecoration: 'none' }}>
-                                                                {childLink.childLables}
-                                                            </Link>
-                                                        </AccordionPanel>
-                                                    )
-                                                }
+                                                return (
+                                                    <AccordionPanel mb='1' borderRadius='10' py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }} style={navStyle2}>
+                                                        <Link pl='7' href={childLink.childPaths} _hover={{ textDecoration: 'none' }}>
+                                                            {childLink.childLables}
+                                                        </Link>
+                                                    </AccordionPanel>
+                                                )
                                             })}
                                         </AccordionItem>
                                     </Accordion>
