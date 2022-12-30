@@ -8,7 +8,7 @@ import {
     Accordion,
     AccordionItem,
     AccordionButton,
-    AccordionPanel, Link
+    AccordionPanel, Link, LinkProps
 } from '@chakra-ui/react'
 import bgPattern from '../../../src/assets/bg-pattern.png'
 import { CgMenuGridR } from 'react-icons/cg'
@@ -17,6 +17,17 @@ import { IoIosNotifications } from 'react-icons/io'
 import { GoChevronDown } from 'react-icons/go'
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+
+// interface LinksProps {
+//     id: number,
+//     label: string,
+//     icon: JSX.Element,
+//     path?: string,
+//     childLinks?: {
+//         childLables: string,
+//         childPaths: string
+//     }[]
+// }
 
 const links = [
     {
@@ -45,7 +56,7 @@ const links = [
         label: 'Notifcations',
         icon: <IoIosNotifications />,
         path: '/notifications'
-    },
+    }
 ];
 const activeStyle = {
     color: 'green',
@@ -88,10 +99,10 @@ export default function DashboardNav() {
                 <VStack justifyContent={'space-between'} h='full' alignItems={'start'}>
                     <Box w='full'>
                         {links.map((link) => {
-                            if (link.path !== undefined) {
+                            if (link?.path !== undefined) {
                                 const navStyle = link.path === currentRoute ? activeStyle : nonactiveStyle;
                                 return (
-                                    <NextLink key={link.id} href={link.path}>
+                                    <NextLink key={link.id} href={link?.path}>
                                         <HStack mb='1' px='4' py='2' style={navStyle} borderRadius='10' _hover={{ backgroundColor: 'white', color: 'green' }}>
                                             {link.icon}
                                             <Text fontSize='md'>{link.label}</Text>
@@ -100,7 +111,7 @@ export default function DashboardNav() {
                                 )
                             } else {
                                 return (
-                                    <Accordion allowMultiple allowToggle w='full' key={link.id} index={Active}>
+                                    <Accordion allowToggle w='full' key={link.id} index={Active}>
                                         <AccordionItem id='1'>
                                             <AccordionButton mb='1' borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
                                                 <Text>{link.icon}</Text>
@@ -132,4 +143,4 @@ export default function DashboardNav() {
             </GridItem>
         </>
     )
-}   
+}
