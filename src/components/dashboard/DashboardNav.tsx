@@ -8,9 +8,11 @@ import {
     Accordion,
     AccordionItem,
     AccordionButton,
-    AccordionPanel, Link, LinkProps
+    AccordionPanel, Link, IconButton
 } from '@chakra-ui/react'
 import bgPattern from '../../../src/assets/bg-pattern.png'
+import { BsFillGrid3X3GapFill, BsBellFill, BsCardImage } from "react-icons/bs";
+import { FiMenu, } from 'react-icons/fi'
 import { CgMenuGridR } from 'react-icons/cg'
 import { MdPermMedia } from 'react-icons/md'
 import { IoIosNotifications } from 'react-icons/io'
@@ -33,7 +35,7 @@ const links = [
     {
         id: 1,
         label: 'My Apps',
-        icon: <CgMenuGridR />,
+        icon: <BsFillGrid3X3GapFill />,
         childLinks: [
             {
                 childLables: 'All Apps',
@@ -48,13 +50,13 @@ const links = [
     {
         id: 2,
         label: 'Media',
-        icon: <MdPermMedia />,
+        icon: <BsCardImage />,
         path: '/media'
     },
     {
         id: 3,
         label: 'Notifcations',
-        icon: <IoIosNotifications />,
+        icon: <BsBellFill />,
         path: '/notifications'
     }
 ];
@@ -68,12 +70,24 @@ const nonactiveStyle = {
 export default function DashboardNav() {
     const router = useRouter();
     const currentRoute = router.pathname;
-    const [Active, setActive] = useState(0);
+    const [navSize, changeNavSize] = useState("large")
 
     return (
         <>
             <GridItem bg='white' area={'header'} borderBottom='1px' borderBottomColor={'grey.100'}>
                 <HStack>
+                    <IconButton
+                        background="none"
+                        mt={5}
+                        _hover={{ background: 'none' }}
+                        icon={<FiMenu />}
+                        onClick={() => {
+                            if (navSize == "small")
+                                changeNavSize("large");
+
+                            else
+                                changeNavSize("small");
+                        }} aria-label={''} />
                     <Heading color='teal.500' size={{ base: 'md', sm: 'lg' }} pl='5' py='3'>DAM</Heading>
                     <Spacer />
                     <Avatar name='Dan Abrahmov' src='https://bit.ly/dan-abramov' size='sm' />
@@ -111,22 +125,22 @@ export default function DashboardNav() {
                                 )
                             } else {
                                 return (
-                                    <Accordion allowToggle w='full' key={link.id} index={Active}>
+                                    <Accordion allowToggle w='full' key={link.id} >
                                         <AccordionItem id='1'>
                                             <AccordionButton mb='1' borderRadius='10' _expanded={{ backgroundColor: 'white', color: 'green' }} _hover={{ backgroundColor: 'white', color: 'green' }}>
                                                 <Text>{link.icon}</Text>
-                                                <Box as="span" flex='1' textAlign='left' pl='3'>
+                                                <Box as="span" flex='1' textAlign='left' pl='2'>
                                                     {link.label}
                                                 </Box>
                                             </AccordionButton>
                                             {link.childLinks.map((childLink, index) => {
                                                 const navStyle2 = childLink.childPaths === currentRoute ? activeStyle : nonactiveStyle;
                                                 return (
-                                                    <AccordionPanel mb='1' borderRadius='10' py='2' key={index} _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }} style={navStyle2}>
-                                                        <Link pl='7' href={childLink.childPaths} _hover={{ textDecoration: 'none' }}>
+                                                    <Link href={childLink.childPaths} _hover={{ textDecoration: 'none' }} key={index} mb='1' borderRadius='10' >
+                                                        <AccordionPanel pl='10' _hover={{ color: 'white', backgroundColor: 'blackAlpha.200' }} style={navStyle2} borderRadius='10'>
                                                             {childLink.childLables}
-                                                        </Link>
-                                                    </AccordionPanel>
+                                                        </AccordionPanel>
+                                                    </Link>
                                                 )
                                             })}
                                         </AccordionItem>
@@ -135,7 +149,7 @@ export default function DashboardNav() {
                             }
                         })}
                     </Box>
-                    <Box p='3'>
+                    <Box p='3' display={navSize == "small" ? "none" : "block"}>
                         <Text fontSize='base' >Privacy Policy</Text>
                         <Text fontSize='base' >Dam &copy; {new Date().getFullYear()}</Text>
                     </Box>

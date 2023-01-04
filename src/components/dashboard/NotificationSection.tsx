@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel, HStack, Avatar, Spacer, VStack, Heading, Text, Box, Divider, CloseButton } from '@chakra-ui/react'
 
-const tabitems = ['all notification', 'unread', 'starred'];
+const tabitems = ['All notification', 'Unread', 'Starred'];
 const items = [
     {
         img: 'https://bit.ly/dan-abramov',
@@ -32,7 +32,7 @@ const items = [
 export default function NotificationSection(props: any) {
     return (
         <>
-            <Tabs colorScheme='teal'>
+            <Tabs colorScheme='teal' backgroundColor='white' minH='88vh' p='5' borderRadius='xl' boxShadow='base'>
                 <TabList>
                     {tabitems.map((item, index) => {
                         return (
