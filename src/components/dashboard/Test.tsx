@@ -55,7 +55,7 @@ export default function Test({
             </Drawer>
             {/* mobilenav */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={navSize == "large" ? "250px" : "70px"} p="4" transition='0.5s ease-in-out'>
+            <Box ml={navSize == "small" ? "250px" : "70px"} p="4" transition='0.5s ease-in-out'>
                 {children}
             </Box>
         </Box>
