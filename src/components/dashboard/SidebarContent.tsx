@@ -26,7 +26,7 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
     {
         id: 1,
-        label: 'My Apps',
+        label: 'My&nbsp;Apps',
         icon: BsGrid,
         childLinks: [
             {

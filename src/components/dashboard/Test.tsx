@@ -12,7 +12,7 @@ import SidebarContent from '../dashboard/SidebarContent'
 // interface LinkItemProps {
 //     name: string;
 //     icon: IconType;
-// }
+// }     
 // const LinkItems: Array<LinkItemProps> = [
 //     { name: 'Home', icon: FiHome },
 //     { name: 'Trending', icon: FiTrendingUp },
@@ -55,7 +55,7 @@ export default function Test({
             </Drawer>
             {/* mobilenav */}
             <MobileNav onOpen={onOpen} />
-            <Box ml={navSize == "small" ? "250px" : "70px"} p="4" transition='0.5s ease-in-out'>
+            <Box ml={navSize == "large" ? "250px" : "70px"} p="4" transition='0.5s ease-in-out'>
                 {children}
             </Box>
         </Box>

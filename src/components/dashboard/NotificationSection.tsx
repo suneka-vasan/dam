@@ -32,7 +32,7 @@ const items = [
 export default function NotificationSection(props: any) {
     return (
         <>
-            <Tabs colorScheme='teal' backgroundColor='white' minH='88vh' p='5' borderRadius='xl' boxShadow='base'>
+            <Tabs colorScheme='teal' backgroundColor='white' minH='88vh' p='5' borderRadius='xl' boxShadow='base' mt='16'>
                 <TabList>
                     {tabitems.map((item, index) => {
                         return (
