@@ -7,13 +7,14 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    Avatar, useColorModeValue, Flex
+    Avatar, useColorModeValue, Flex, useDisclosure
 } from '@chakra-ui/react'
 import { GoChevronDown } from 'react-icons/go'
 import { BsGrid, BsBell, BsImages } from "react-icons/bs"
 import { FiMenu, } from 'react-icons/fi'
 import bgPattern from '../../../src/assets/bg-pattern.png'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import NavItem from './NavItem'
 
 
 const links = [
@@ -53,20 +54,22 @@ const activeStyle = {
 const nonactiveStyle = {
 }
 
-export default function Test_1({
+export default function Test({
     children,
 }: {
     children: ReactNode;
 }) {
-    const router = useRouter();
-    const currentRoute = router.pathname;
-    const [navShrinked, setNavShrinked] = useState('large');
+    const router = useRouter()
+    const currentRoute = router.pathname
+    const [navShrinked, setNavShrinked] = useState('large')
+    const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
             <Box bg='white' borderBottom='1px' borderBottomColor={'grey.100'} position='fixed' w='full'>
                 <HStack borderBottomWidth="1px"
                     borderBottomColor={useColorModeValue('gray.200', 'gray.700')}>
                     <IconButton
+                        pl='1.5'
                         background="none"
                         icon={<FiMenu />}
                         aria-label={''}
@@ -108,25 +111,64 @@ export default function Test_1({
             <Box minW='250' bgImage={bgPattern.src}
                 bgPos='center'
                 bgSize='cover'
-                bgRepeat='no-repeat' mt='60px' style={{
-                    height: '100vh',
-                    position: 'fixed',
-                    left: navShrinked === 'small' ? '-200px' : '0px',
-                    top: '0',
-                    transition: '0.3s ease',
-                    color: 'white',
-                    padding: navShrinked === 'small' ? '0' : '4px',
-                }}>
+                bgRepeat='no-repeat' mt='60px'
+                h='100vh'
+                pos='fixed'
+                transition='0.2s ease'
+                color='white'
+                p='1.5'
+                left={navShrinked === 'small' ? '-200px' : '0px'}>
                 {navShrinked === 'small' ? (
                     <VStack display='flex' textAlign='left' alignItems='end'>
                         {links.map((link) => {
-                            const navStyle = link.path === currentRoute ? activeStyle : nonactiveStyle;
-                            return (
-                                <Box key={link.id} display='flex'>
-                                    <Link style={navStyle} py='4' px='5' w='full' borderRadius='10' href={link.path}>{link.icon}</Link>
-                                </Box>
-                            );
+                            if (link?.path !== undefined) {
+                                return (
+                                    <>
+                                    </>
+                                )
+                            }
+                            else {
+                                const navStyle = link.path === currentRoute ? activeStyle : nonactiveStyle;
+                                return (
+                                    <Menu key={link.id} placement="right" isOpen={isOpen}>
+                                        <Link
+                                            px={3}
+                                            py='2'
+                                            borderRadius={8}
+                                            color='white'
+                                            _hover={{ textDecor: 'none', backgroundColor: "white", color: 'green' }}
+                                            onMouseEnter={onOpen}
+                                            onMouseLeave={onClose}
+                                            style={navStyle}>
+                                            <MenuButton w="100%">
+                                                <Flex>
+                                                    {link.icon}
+                                                    <Text display={navShrinked == "small" ? "none" : "flex"}>{link.label}</Text>
+                                                </Flex>
+                                            </MenuButton>
+                                        </Link>
+                                        <MenuList
+                                            py={0}
+                                            border="none"
+                                            w={200}
+                                            ml={3}
+                                            backgroundColor='teal.500'
+                                            onMouseEnter={onOpen} onMouseLeave={onClose}>
+                                            {link.childLinks?.map((childLink, index) => {
+                                                if (childLink !== undefined) {
+                                                    const navStyle = link.path === currentRoute ? activeStyle : nonactiveStyle;
+                                                    return (
+                                                        <MenuItem key={index} borderRadius='lg' backgroundColor='teal.500'><Link href={childLink.childPaths}>{childLink.childLables}</Link></MenuItem>
+                                                    )
+                                                }
+                                            })}
+                                        </MenuList>
+                                    </Menu>
+                                )
+                            }
                         })}
+                        <NavItem icon={BsImages} title="Media" path='/media' />
+                        <NavItem icon={BsBell} title="Notification" path='./notifications' />
                     </VStack>
                 ) :
                     <VStack justifyContent={'space-between'} h='full' alignItems={'start'}>
@@ -167,16 +209,15 @@ export default function Test_1({
                                     )
                                 }
                             })}
-
                         </Box>
-                        <Box p='3' display={navShrinked == "small" ? "none" : "block"}>
+                        <Box p='3'>
                             <Text fontSize='base'>Privacy Policy</Text>
                             <Text fontSize='base' mb='16'>Dam &copy; {new Date().getFullYear()}</Text>
                         </Box>
                     </VStack>
                 }
             </Box >
-            <Box ml={navShrinked == "large" ? "250px" : "50px"} p="4" transition='0.3s ease'>
+            <Box ml={navShrinked == "large" ? "250px" : "50px"} p="4" transition='0.2s ease'>
                 {children}
             </Box>
         </>

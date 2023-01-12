@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    Box, Heading, HStack, Flex, Image, Text
+    Box, Heading, HStack, Flex, Image, Text, Center
 } from '@chakra-ui/react'
 import DashboardNav from '../components/dashboard/DashboardNav'
 import fb from '../assets/facebook.png'
@@ -38,14 +38,14 @@ export default function Allapps() {
                 <HStack spacing={5}>
                     {items.map(item => {
                         return (
-                            <Flex key={item.id} w='200px' h='200px' bg='white' borderRadius='xl' boxShadow='base' p='3' alignItems='center' justifyContent='center'>
+                            <Center key={item.id} w='200px' h='200px' bg='white' borderRadius='xl' boxShadow='base' p='3'>
                                 <Box>
                                     <Image src={item.img.src} alt='Social Icons' h='75px' w='75px' />
                                     <Text color={"green.500"} textAlign='center'>
                                         {item.title}
                                     </Text>
                                 </Box>
-                            </Flex>
+                            </Center>
                         )
                     })}
                 </HStack>

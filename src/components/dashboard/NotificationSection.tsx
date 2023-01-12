@@ -53,8 +53,8 @@ export default function NotificationSection(props: any) {
                                             <Heading size='base' color='green.500'>{item.title}</Heading>
                                             <CloseButton />
                                         </HStack>
-                                        <Text color='teal.500' >{item.time}</Text>
-                                        <Box bg='grey.50' borderRadius='lg' p='3' >{item.bodytext}</Box>
+                                        <Text color='teal.500'>{item.time}</Text>
+                                        <Box bg='grey.50' borderRadius='lg' p='3'>{item.bodytext}</Box>
                                     </Box>
                                 </HStack>
                             );
