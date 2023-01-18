@@ -70,7 +70,7 @@ export default function Login() {
                                     register={register}
                                     errors={errors}
                                     control={control}
-                                /> */}
+                                /> 
                                 <CustomField
                                     label="Password"
                                     name="password"
@@ -78,7 +78,7 @@ export default function Login() {
                                     register={register}
                                     errors={errors}
                                     control={control}
-                                />
+                                />*/}
                                 <Button mt='5' type='submit' colorScheme='green' px='10'
                                     isLoading={loading}>Login</Button>
                             </form>
