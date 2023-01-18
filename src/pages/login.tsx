@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import bgPattern from '../../src/assets/bg-pattern.png'
 import { yupResolver } from "@hookform/resolvers/yup"
 import { defaultValuesLoginForm, yupValidationLoginForm } from "../components/validator/login"
-//import CustomField from '../components/common/CustomField'
+import CustomField from '../components/common/CustomField'
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
@@ -62,7 +62,7 @@ export default function Login() {
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <Heading color='green.500' size={{ base: 'md', sm: 'lg' }}>Login</Heading>
                                 <Text pb='5'>Don&lsquo;t have an account? <Link href='/signup' color='teal.500'>Sign up</Link></Text>
-                                {/* <CustomField
+                                <CustomField
                                     label="Username or Email"
                                     name="email"
                                     register={register}
@@ -76,7 +76,7 @@ export default function Login() {
                                     register={register}
                                     errors={errors}
                                     control={control}
-                                /> */}
+                                />
                                 <Button mt='5' type='submit' colorScheme='green' px='10'
                                     isLoading={loading}>Login</Button>
                             </form>
