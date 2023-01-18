@@ -6,16 +6,33 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from "react-hook-form"
 import bgPattern from '../../src/assets/bg-pattern.png'
+import { yupResolver } from "@hookform/resolvers/yup"
+import { defaultValuesLoginForm, yupValidationLoginForm } from "../components/validator/login"
+import CustomField from '../components/common/CustomField'
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
+    // const {
+    //     reset,
+    //     register,
+    //     handleSubmit,
+    //     formState: { errors, isSubmitting },
+    // } = useForm()
     const {
         reset,
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm()
-    const onSubmit = (data: any) => console.log(data);
+        control,
+        formState: { errors },
+    } = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(yupValidationLoginForm),
+        defaultValues: defaultValuesLoginForm,
+    })
+    const onSubmit = async (data: any) => {
+        console.log(data);
+        reset()
+    }
 
     return (
         <Box bgColor='grey.50'>
@@ -46,37 +63,24 @@ export default function Login() {
                         <Box w='400px'>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <Heading color='green.500' size={{ base: 'md', sm: 'lg' }}>Login</Heading>
-                                <Text pb='5'>Don’t have an account? <Link href='/signup' color='teal.500'>Sign up</Link></Text>
-                                <FormControl isInvalid={errors.email}>
-                                    <FormLabel htmlFor="email">Email</FormLabel>
-                                    <Input
-                                        focusBorderColor="green.500"
-                                        id="email"
-                                        type="text"
-                                        {...register('email', {
-                                            required: 'Email is required',
-                                            pattern: {
-                                                value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                                message: 'Please enter a valid email',
-                                            },
-                                        })}
-                                    />
-                                    {errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}
-                                </FormControl>
-                                <FormControl isInvalid={errors.password}>
-                                    <FormLabel>Password</FormLabel>
-                                    <Input focusBorderColor="green.500" type='password'
-                                        id="password"
-                                        {...register("password", {
-                                            required: "Password is required",
-                                            pattern: {
-                                                message: 'Please enter a password',
-                                            },
-                                        })} />
-                                    {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
-                                </FormControl>
+                                <Text pb='5'>Don&lsquo;t have an account? <Link href='/signup' color='teal.500'>Sign up</Link></Text>
+                                <CustomField
+                                    label="Username or Email"
+                                    name="email"
+                                    register={register}
+                                    errors={errors}
+                                    control={control}
+                                />
+                                <CustomField
+                                    label="Password"
+                                    name="password"
+                                    type="password"
+                                    register={register}
+                                    errors={errors}
+                                    control={control}
+                                />
                                 <Button mt='5' type='submit' colorScheme='green' px='10'
-                                    isLoading={isSubmitting || loading}>Login</Button>
+                                    isLoading={loading}>Login</Button>
                             </form>
                         </Box>
                     </Flex>
@@ -85,4 +89,3 @@ export default function Login() {
         </Box>
     )
 }
-
