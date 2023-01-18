@@ -57,7 +57,7 @@ export default function Login() {
                                 <Heading color='green.500' size={{ base: 'md', sm: 'lg' }}>Login</Heading>
                                 <Text pb='5'>Don&lsquo;t have an account? <Link href='/signup' color='teal.500'>Sign up</Link></Text>
                                 <CustomField
-                                    label="Username or Email"
+                                    label="Email"
                                     name="email"
                                     register={register}
                                     errors={errors}
