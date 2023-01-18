@@ -64,13 +64,13 @@ export default function Login() {
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <Heading color='green.500' size={{ base: 'md', sm: 'lg' }}>Login</Heading>
                                 <Text pb='5'>Don&lsquo;t have an account? <Link href='/signup' color='teal.500'>Sign up</Link></Text>
-                                <CustomField
+                                {/* <CustomField
                                     label="Username or Email"
                                     name="email"
                                     register={register}
                                     errors={errors}
                                     control={control}
-                                />
+                                /> */}
                                 <CustomField
                                     label="Password"
                                     name="password"
