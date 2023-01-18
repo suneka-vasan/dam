@@ -10,12 +10,6 @@ import CustomField from '../components/common/CustomField'
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
-    // const {
-    //     reset,
-    //     register,
-    //     handleSubmit,
-    //     formState: { errors, isSubmitting },
-    // } = useForm()
     const {
         reset,
         register,
