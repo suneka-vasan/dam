@@ -9,6 +9,7 @@ import {
     Select,
     Switch,
     Textarea,
+    RadioGroup, Radio, Box, Stack, useToast, useRadioGroup
 } from "@chakra-ui/react"
 import { nanoid } from "nanoid"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
@@ -20,6 +21,7 @@ export interface CustomFieldProps {
     label: string
     type?: string
     options?: any
+    radio?: any
     placeholder?: string
     control?: any
     register: any
@@ -33,6 +35,12 @@ export interface CustomFieldProps {
 const Field = (props: CustomFieldProps) => {
     const { field } = props
     const [show, setShow] = useState(false)
+    const [value, setValue] = useState()
+    const handleChange = (f: { target: { value: any } }) => {
+        const value = f.target.value;
+        setValue(value);
+        console.log(value)
+    };
 
     if (props.type === "select") {
         return (
@@ -40,7 +48,7 @@ const Field = (props: CustomFieldProps) => {
                 {...field}
                 placeholder={props.placeholder}
                 borderColor={"gray.400"}
-                _hover={{ borderColor: "pink.400" }}
+                _hover={{ borderColor: "green.500" }}
                 onChange={e => props.setValue(props.name, e.target.value, { shouldValidate: true })}>
                 <option value="">Choose {props.label}</option>
                 {props.options.map(({ value, label }: { value: string; label: string }) => {
@@ -52,6 +60,28 @@ const Field = (props: CustomFieldProps) => {
                 })}
             </Select>
         )
+    } else if (props.type === "radio") {
+        return (
+            <Controller
+                name={props.name}
+                control={props.control}
+                render={({ field: { onChange, value } }) => (
+                    <RadioGroup onChange={onChange} value={value}>
+                        <Stack direction="row">
+                            {props.radio.map(({ value, label }: { value: string; label: string }) => {
+                                return (
+                                    <Box key={nanoid()} w={{ base: '100%', sm: '50%' }} border='1px' borderColor='gray.400' px='4' py='1' borderRadius='8' _hover={{ borderColor: "green.500" }}>
+                                        <Radio value={value} colorScheme='green'>
+                                            {label}
+                                        </Radio>
+                                    </Box>
+                                )
+                            })}
+                        </Stack>
+                    </RadioGroup>
+                )}
+            />
+        )
     } else if (props.type === "password") {
         return (
             <InputGroup>
@@ -60,7 +90,8 @@ const Field = (props: CustomFieldProps) => {
                     pr="4.5rem"
                     type={show ? "text" : "password"}
                     borderColor={"gray.400"}
-                    _hover={{ borderColor: "pink.400" }}
+                    _hover={{ borderColor: "green.500" }}
+                    focusBorderColor="green.500"
                 />
                 <InputRightElement width="4.5rem">
                     <Button variant="link" onClick={() => setShow(!show)}>
@@ -72,7 +103,7 @@ const Field = (props: CustomFieldProps) => {
     } else if (props.type === "textarea") {
         return (
             <FormControl display="flex" alignItems="center">
-                <Textarea {...field} borderColor={"gray.400"} _hover={{ borderColor: "pink.400" }} />
+                <Textarea {...field} borderColor={"gray.400"} _hover={{ borderColor: "green.500" }} />
                 <FormLabel color={"black"} htmlFor={props.name} mb={0}>
                     {props.description}
                 </FormLabel>
@@ -81,14 +112,14 @@ const Field = (props: CustomFieldProps) => {
     } else if (props.type === "switch") {
         return (
             <FormControl display="flex" alignItems="center">
-                <Switch {...field} pr={4} colorScheme="pink" />
+                <Switch {...field} pr={4} colorScheme="green" />
                 <FormLabel color={"black"} htmlFor={props.name} mb={0}>
                     {props.description}
                 </FormLabel>
             </FormControl>
         )
     } else {
-        return <Input {...field} type={props.type} borderColor={"gray.400"} _hover={{ borderColor: "pink.400" }} />
+        return <Input {...field} type={props.type} borderColor={"gray.400"} _hover={{ borderColor: "green.500" }} focusBorderColor="green.500" />
     }
 }
 

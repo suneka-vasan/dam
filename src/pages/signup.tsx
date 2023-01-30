@@ -1,9 +1,30 @@
-import React from 'react'
-import { Button, Link, Container, Box, Flex, Input, Heading, Text, Card, HStack, Radio, RadioGroup, Stack } from '@chakra-ui/react'
+import React, { useState, useEffect } from 'react'
+import { Button, Link, Container, Box, Flex, Input, Heading, Text, Card, Radio, RadioGroup, Stack, useRadioGroup, Select, FormControl, FormLabel } from '@chakra-ui/react'
+import { Controller, useForm } from "react-hook-form"
 import bgPattern from '../../src/assets/bg-pattern.png'
+import { yupResolver } from "@hookform/resolvers/yup"
+import { defaultValuesSignupForm, yupValidationSignupForm } from "../components/validator/signup"
+import CustomField from '../components/common/CustomField'
+
+const rows = [{ value: 'Professional', label: 'Professional' }, { value: 'Personal', label: 'Personal' }]
 
 export default function Signup() {
-    const [value, setValue] = React.useState('Professional')
+    const [loading, setLoading] = useState(false)
+    const {
+        reset,
+        register,
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(yupValidationSignupForm),
+        defaultValues: defaultValuesSignupForm,
+    })
+    const onSubmit = async (data: any) => {
+        console.log({ data });
+        reset()
+    }
     return (
         <Box bgColor='grey.50'>
             <Container maxW={'container.lg'} height={{ base: '100%', sm: '100vh' }} display={'flex'} alignItems='center' justifyContent='center'>
@@ -28,24 +49,44 @@ export default function Signup() {
                         </Box>
                         <Box></Box>
                     </Flex>
-                    <Flex alignItems='center' justifyContent='center' p={{ base: '5', sm: '10' }} bgColor='white'>
-                        <Box>
-                            <Heading color='green.500' size={{ base: 'md', sm: 'lg' }}>Sign up</Heading>
-                            <Text pb='5'>Alreay have an account? <Link href='/login' color='teal.500' textDecoration='none'>Login</Link></Text>
-                            <Text>Looking for?</Text>
-                            <RadioGroup onChange={setValue} value={value}>
-                                <Stack mb='5' direction={{ base: 'column', sm: 'row' }}>
-                                    <Box w={{ base: '100%', sm: '50%' }} border='1px' borderColor='gray.200' px='4' py='1' borderRadius='8'><Radio value='Professional' colorScheme='green' defaultChecked size='sm'>Professional</Radio></Box>
-                                    <Box w={{ base: '100%', sm: '50%' }} border='1px' borderColor='gray.200' px='4' py='1' borderRadius='8'><Radio value='Personal' colorScheme='green' size='sm'>Personal</Radio></Box>
-                                </Stack>
-                            </RadioGroup>
-                            <Text>Email</Text>
-                            <Input focusBorderColor="green.500" mb='5' />
-                            <Text>Password</Text>
-                            <Input focusBorderColor="green.500" mb='5' />
-                            <Text>Company Name</Text>
-                            <Input focusBorderColor="green.500" mb='5' />
-                            <Link href='/login'><Button colorScheme='green' px='10'>Sign up</Button></Link>
+                    <Flex alignItems='center' justifyContent='start' p={{ base: '5', sm: '10' }} bgColor='white' w={{ base: '100%', sm: '200px', md: '400px', lg: '500px' }}>
+                        <Box w='full'>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <Heading color='green.500' size={{ base: 'md', sm: 'lg' }}>Sign up</Heading>
+                                <Text pb='5'>Alreay have an account? <Link href='/login' color='teal.500' textDecoration='none'>Login</Link></Text>
+                                <CustomField
+                                    label="Looking for?"
+                                    name="lookingfor"
+                                    type="radio"
+                                    register={register}
+                                    errors={errors}
+                                    control={control}
+                                    radio={rows}
+                                />
+                                <CustomField
+                                    label="Email"
+                                    name="email"
+                                    register={register}
+                                    errors={errors}
+                                    control={control}
+                                />
+                                <CustomField
+                                    label="Password"
+                                    name="password"
+                                    type="password"
+                                    register={register}
+                                    errors={errors}
+                                    control={control}
+                                />
+                                <CustomField
+                                    label="Company"
+                                    name="company"
+                                    register={register}
+                                    errors={errors}
+                                    control={control}
+                                />
+                                <Button colorScheme='green' px='10' type='submit'>Sign up</Button>
+                            </form>
                         </Box>
                     </Flex>
                 </Card>
