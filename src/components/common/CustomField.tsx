@@ -9,11 +9,11 @@ import {
     Select,
     Switch,
     Textarea,
-    RadioGroup, Radio, Box, Stack, useToast, useRadioGroup
+    RadioGroup, Radio, Box, Stack
 } from "@chakra-ui/react"
 import { nanoid } from "nanoid"
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
-import { useState } from "react"
+import React, { useState } from "react"
 import { Controller } from "react-hook-form"
 
 export interface CustomFieldProps {
@@ -35,12 +35,6 @@ export interface CustomFieldProps {
 const Field = (props: CustomFieldProps) => {
     const { field } = props
     const [show, setShow] = useState(false)
-    const [value, setValue] = useState()
-    const handleChange = (f: { target: { value: any } }) => {
-        const value = f.target.value;
-        setValue(value);
-        console.log(value)
-    };
 
     if (props.type === "select") {
         return (
@@ -62,25 +56,22 @@ const Field = (props: CustomFieldProps) => {
         )
     } else if (props.type === "radio") {
         return (
-            <Controller
-                name={props.name}
-                control={props.control}
-                render={({ field: { onChange, value } }) => (
-                    <RadioGroup onChange={onChange} value={value}>
-                        <Stack direction="row">
-                            {props.radio.map(({ value, label }: { value: string; label: string }) => {
-                                return (
-                                    <Box key={nanoid()} w={{ base: '100%', sm: '50%' }} border='1px' borderColor='gray.400' px='4' py='1' borderRadius='8' _hover={{ borderColor: "green.500" }}>
-                                        <Radio value={value} colorScheme='green'>
-                                            {label}
-                                        </Radio>
-                                    </Box>
-                                )
-                            })}
-                        </Stack>
-                    </RadioGroup>
-                )}
-            />
+            <RadioGroup
+                {...field}
+                onChange={(value: any) => field.onChange(value)}
+                value={field.value}>
+                <Stack direction="row">
+                    {props.radio.map(({ value, label }: { value: string; label: string }) => {
+                        return (
+                            <Box key={nanoid()} w={{ base: '100%', sm: '50%' }} border='1px' borderColor='gray.400' px='4' py='1' borderRadius='8' _hover={{ borderColor: "green.500" }}>
+                                <Radio value={value} colorScheme='green'>
+                                    {label}
+                                </Radio>
+                            </Box>
+                        )
+                    })}
+                </Stack>
+            </RadioGroup>
         )
     } else if (props.type === "password") {
         return (

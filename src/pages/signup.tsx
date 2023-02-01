@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Link, Container, Box, Flex, Input, Heading, Text, Card, Radio, RadioGroup, Stack, useRadioGroup, Select, FormControl, FormLabel } from '@chakra-ui/react'
-import { Controller, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import bgPattern from '../../src/assets/bg-pattern.png'
 import { yupResolver } from "@hookform/resolvers/yup"
 import { defaultValuesSignupForm, yupValidationSignupForm } from "../components/validator/signup"
@@ -14,6 +14,7 @@ export default function Signup() {
         reset,
         register,
         handleSubmit,
+        setValue,
         control,
         formState: { errors },
     } = useForm({
@@ -62,6 +63,7 @@ export default function Signup() {
                                     errors={errors}
                                     control={control}
                                     radio={rows}
+                                    setValue={setValue}
                                 />
                                 <CustomField
                                     label="Email"
