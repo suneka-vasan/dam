@@ -57,7 +57,6 @@ const Field = (props: CustomFieldProps) => {
     } else if (props.type === "radio") {
         return (
             <RadioGroup
-                {...field}
                 onChange={(value: any) => field.onChange(value)}
                 value={field.value}>
                 <Stack direction="row">
